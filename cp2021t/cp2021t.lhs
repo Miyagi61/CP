@@ -127,15 +127,14 @@
 
 \begin{center}\large
 \begin{tabular}{ll}
-\textbf{Grupo} nr. & 999 (preencher)
+\textbf{Grupo} nr. & 100
 \\\hline
-a11111 & Nome1 (preencher)	
+a93297 & Gonçalo da Cunha Freitas	
 \\
-a22222 & Nome2 (preencher)	
+a93235 & João Luís Tibo Machado dos Santos	
 \\
-a33333 & Nome3 (preencher)	
+a93205 & Lídia Anaís Coelho de Sousa	
 \\
-a44444 & Nome4 (preencher, se aplicável, ou apagar)	
 \end{tabular}
 \end{center}
 
@@ -702,6 +701,7 @@ Verifique as suas funções testando a propriedade seguinte:
 A média de uma lista não vazia e de uma \LTree\ com os mesmos elementos coincide,
 a menos de um erro de 0.1 milésimas:
 \begin{code}
+prop_avg :: Ord a => [a] -> Property
 prop_avg = nonempty .==>. diff .<=. const 0.000001 where
    diff l = avg l - (avgLTree . genLTree) l
    genLTree = anaLTree lsplit
@@ -1017,11 +1017,20 @@ ad v = p2 . cataExpAr (ad_gen v)
 Definir:
 
 \begin{code}
-outExpAr = undefined 
+outExpAr X = i1 ()
+outExpAr (N a) = i2 . i1 $ a
+outExpAr (Bin op x y) = i2 . i2 . i1 $ (op,(x,y))
+outExpAr (Un op x) = i2 . i2 . i2 $ (op, x)
 ---
-recExpAr = undefined
+recExpAr g = baseExpAr id id id g g id g
 ---
-g_eval_exp = undefined
+g_eval_exp a = either (const a) g where
+    g = either g2_eval g2
+    g2 = either g3_eval
+
+g2_eval (N a) = a
+g3_eval (a,(b,c)) = if a == Sum then b + c else b * c
+g4_eval (a,b) = if a == Negate then -b else Prelude.exp b
 ---
 clean = undefined
 ---

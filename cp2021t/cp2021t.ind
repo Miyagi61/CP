@@ -1,0 +1,69 @@
+\begin{theindex}
+
+  \item \LaTeX , \hyperpage{1}
+    \subitem \texttt  {bibtex}, \hyperpage{2}
+    \subitem \texttt  {lhs2TeX}, \hyperpage{1}
+    \subitem \texttt  {makeindex}, \hyperpage{2}
+
+  \indexspace
+
+  \item Combinador ``pointfree''
+    \subitem \emph  {cata}, \hyperpage{8, 9}
+    \subitem \emph  {either}, \hyperpage{3}, \hyperpage{8}
+  \item Curvas de Bézier, \hyperpage{6, 7}
+  \item Cálculo de Programas, \hyperpage{1, 2}, \hyperpage{5}
+    \subitem Material Pedagógico, \hyperpage{1}
+      \subsubitem BTree.hs, \hyperpage{8}
+      \subsubitem Cp.hs, \hyperpage{8}
+      \subsubitem LTree.hs, \hyperpage{8}, \hyperpage{14}
+      \subsubitem Nat.hs, \hyperpage{8}
+
+  \indexspace
+
+  \item Deep Learning), \hyperpage{3}
+  \item DSL (linguaguem específica para domínio), \hyperpage{3}
+
+  \indexspace
+
+  \item F\#, \hyperpage{8}, \hyperpage{14}
+  \item Functor, \hyperpage{5}, \hyperpage{11}
+  \item Função
+    \subitem $\pi _1$, \hyperpage{6}, \hyperpage{9}, \hyperpage{14}
+    \subitem $\pi _2$, \hyperpage{9}, \hyperpage{13}
+    \subitem \emph  {for}, \hyperpage{6}, \hyperpage{9}, \hyperpage{13}
+    \subitem \emph  {length}, \hyperpage{8}
+    \subitem \emph  {map}, \hyperpage{11, 12}
+    \subitem \emph  {uncurry}, \hyperpage{3}
+
+  \indexspace
+
+  \item Haskell, \hyperpage{1, 2}, \hyperpage{8}
+    \subitem Gloss, \hyperpage{2}, \hyperpage{11}
+    \subitem interpretador
+      \subsubitem GHCi, \hyperpage{2}
+    \subitem Literate Haskell, \hyperpage{1}
+    \subitem QuickCheck, \hyperpage{2}
+    \subitem Stack, \hyperpage{2}
+
+  \indexspace
+
+  \item Números de Catalan, \hyperpage{6}, \hyperpage{10}
+  \item Números naturais ($I\mskip -\thinmuskip \mskip -\thinmuskip N$), 
+		\hyperpage{5, 6}, \hyperpage{9}
+
+  \indexspace
+
+  \item Programação
+    \subitem dinâmica, \hyperpage{5}
+    \subitem literária, \hyperpage{1}
+
+  \indexspace
+
+  \item Racionais, \hyperpage{7, 8}, \hyperpage{10--12}
+
+  \indexspace
+
+  \item U.Minho
+    \subitem Departamento de Informática, \hyperpage{1}
+
+\end{theindex}
