@@ -1026,9 +1026,9 @@ recExpAr g = baseExpAr id id id g g id g
 ---
 g_eval_exp a = either (const a) g where
     g = either g2_eval g2
-    g2 = either g3_eval
+    g2 = either g3_eval g4_eval
 
-g2_eval (N a) = a
+g2_eval a = a
 g3_eval (a,(b,c)) = if a == Sum then b + c else b * c
 g4_eval (a,b) = if a == Negate then -b else Prelude.exp b
 ---
