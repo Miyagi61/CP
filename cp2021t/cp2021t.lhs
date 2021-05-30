@@ -1064,15 +1064,23 @@ sd_gen = either g1 (either g3 (either g5 g6)) where
 \end{code}
 
 \begin{code}
-ad_gen = undefined
+ad_gen v = either g1 (either g3 (either g5 g6)) where
+    g1 = (\() -> (v,1))
+    g3 a = (a, 0)
+    g5 (op,((n1,n2),(n3,n4))) = if op == Sum then (n1 + n3, n2 + n4)
+                                                      else (n1*n3, n1*n4 + n2*n3)
+    g6 (op,(n1,n2)) = if op == Negate then ( negate n1, negate n2)
+                                          else ( Prelude.exp n1, (Prelude.exp n1) * n2)
+
 \end{code}
 
 \subsection*{Problema 2}
 Definir
 \begin{code}
-loop = undefined
-inic = undefined
-prj = undefined
+loop (c,h,s) = ( (c * h) `div` s, h + 4 , s + 1 ) 
+inic = (1,2,2)
+prj (c,h,s) = c
+
 \end{code}
 por forma a que
 \begin{code}
