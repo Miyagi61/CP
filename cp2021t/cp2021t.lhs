@@ -318,7 +318,6 @@ data ExpAr a = X
            | Un UnOp (ExpAr a)
            deriving (Eq, Show)
 \end{code}
-
 \noindent
 onde |BinOp| e |UnOp| representam operações binárias e unárias, respectivamente:
 
@@ -707,8 +706,16 @@ prop_avg = nonempty .==>. diff .<=. const 0.000001 where
    genLTree = anaLTree lsplit
    nonempty = (>[])
 \end{code}
-\end{propriedade}
+\end{propriedade} 
+-- () Bin Sum X (N 4)
+{- g_eval_exp a = either (const a) g where
+    g = either g2 g3
+    g2 a = a
+    g3 = either g4 g5
+    g4 (op,(x,y)) = if op == Sum then x+y else x*y
+    g5 (op,x) = if op == Negate then x*(-1) else Prelude.exp x 
 
+-}
 \Problema	(\textbf{NB}: Esta questão é \textbf{opcional} e funciona como \textbf{valorização} apenas para os alunos que desejarem fazê-la.) 
 
 \vskip 1em \noindent
@@ -1032,15 +1039,28 @@ g2_eval a = a
 g3_eval (a,(b,c)) = if a == Sum then b + c else b * c
 g4_eval (a,b) = if a == Negate then -b else Prelude.exp b
 ---
-clean = undefined
+clean X = i1 ()
+clean (N a) = i2 . i1 $ a
+clean (Bin Product (N 0) _) = i2 . i1 $ 0
+clean (Bin Product _ (N 0)) = i2 . i1 $ 0
+clean (Bin op x y) = i2. i2 . i1 $ (op,(x,y))
+clean (Un op x) = i2 . i2 . i2 $ (op, x)
 ---
-gopt = undefined 
+gopt a = g_eval_exp a
 \end{code}
 
 \begin{code}
 sd_gen :: Floating a =>
     Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a)))) -> (ExpAr a, ExpAr a)
-sd_gen = undefined
+sd_gen = either g1 (either g3 (either g5 g6)) where
+    g1 _ = (X, N 1)
+    g3 a = (N a, N 0)
+    g5 (op,((exp1,exp2),(exp3,exp4))) = if op == Sum then (Bin Sum exp1 exp3, Bin Sum exp2 exp4)
+                                                      else (Bin Product exp1 exp3, Bin Sum (Bin Product exp1 exp4) 
+                                                                                           (Bin Product exp2 exp3))
+    g6 (op,(exp1,exp2)) = if op == Negate then (Un op exp1, Un op exp2)
+                                          else (Un op exp1, Bin Product (Un op exp1) exp2)
+    
 \end{code}
 
 \begin{code}
