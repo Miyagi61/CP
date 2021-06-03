@@ -626,7 +626,7 @@ p3d = [0.2, 10.3, 2.4]
 O tipo de dados |OverTime a| representa um termo do tipo |a| num dado instante
 (dado por um |Float|).
 \begin{code}
-type OverTime a = Float -> a
+type OverTime a = Float -> a 
 \end{code}
 %
 O anexo \ref{sec:codigo} tem definida a função 
@@ -700,7 +700,7 @@ Verifique as suas funções testando a propriedade seguinte:
 A média de uma lista não vazia e de uma \LTree\ com os mesmos elementos coincide,
 a menos de um erro de 0.1 milésimas:
 \begin{code}
-prop_avg :: Ord a => [a] -> Property
+prop_avg :: [Double] -> Property
 prop_avg = nonempty .==>. diff .<=. const 0.000001 where
    diff l = avg l - (avgLTree . genLTree) l
    genLTree = anaLTree lsplit
@@ -1021,51 +1021,169 @@ sd = p2 . cataExpAr sd_gen
 ad :: Floating a => a -> ExpAr a -> a
 ad v = p2 . cataExpAr (ad_gen v)
 \end{code}
-Definir:
+\textbf{outExpAr}
 
+\begin{eqnarray}
+\start
+    |outExpAr . inExpAr = id|
+%
+\just\equiv{ Def inExpAr }
+%
+  |outExpAr . (either (const X) numops) = id|
+%
+\just\equiv{ Fusão-+ }
+%
+  |either (outExpAr. (const X))  (outExpAr . numops) = id|
+%
+\just\equiv{ Universal-+, Natural id }
+%
+  |lcbr(
+        outExpAr . const X = i1
+    )(
+        outExpAr . num_ops = i2
+    )|
+%
+\just\equiv{ Def num\_ops, Def ops}
+%
+  |lcbr(
+        outExpAr . const X = i1
+    )(
+        outExpAr . either N (either bin (uncurry Un)) = i2
+    )|
+%
+\just\equiv{ Natural-id, Reflexao-+, Fusao-+, Eq-+ }
+%
+  |lcbr(
+        outExpAr . const X = i1
+    )|
+%
+  |lcbr( 
+        outExpAr . N = i2 . i1
+        )(
+        outExpAr . either bin (uncurry  Un) = i2 . i2
+    )|
+\qed
+\end{eqnarray}
+Repetindo este passo mais uma vez e após aplicar a regra de igualdade extensional chega-se à seguinte definição:
 \begin{code}
 outExpAr X = i1 ()
 outExpAr (N a) = i2 . i1 $ a
 outExpAr (Bin op x y) = i2 . i2 . i1 $ (op,(x,y))
 outExpAr (Un op x) = i2 . i2 . i2 $ (op, x)
+\end{code}
 ---
+\newline
+\textbf{recExpAr}
+\begin{eqnarray*}
+\xymatrixcolsep{0.5pc}\xymatrixrowsep{5pc}
+\centerline{\xymatrix{
+   ExpAr A \ar[d]_-{|cata g|}
+                \ar@@/^2pc/ [rr]^-{|out|} & \qquad \cong
+&   1 + (A + (BinOp \times (ExpAr A \times ExpAr A)) + (UnOp \times ExpAr A)) \ar[d]^{|id + (id + (id >< ((cata g) >< (cata g)) + id >< (cata g))))|}
+                                     \ar@@/^2pc/ [ll]^-{|in|}
+\\
+    |a| &  & 1 + (a + ((BinOp \times (a \times a)) + UnOp \times a))\ar[ll]^-{|g|}
+}}
+\end{eqnarray*}
+\newpage
+\begin{eqnarray*}
+\start
+  recExpAr\ g = {|id + (id + (id >< (g >< g) + id >< g)))|}
+%
+\just\equiv{\textcolor{blue}{Aplicando\ a\ definição\ dada\ de\ baseExpAr}}
+\end{eqnarray*}
+
+\begin{code}
 recExpAr g = baseExpAr id id id g g id g
+\end{code}
 ---
+\newline
+\textbf{g\_eval\_exp}
+\begin{eqnarray*}
+\xymatrixcolsep{0.5pc}\xymatrixrowsep{5pc}
+\centerline{\xymatrix{
+   ExpAr A \ar[d]_-{|eval_exp|}
+                \ar@@/^2pc/ [rr]^-{|out|} & \qquad \cong
+&   1 + (A + (BinOp \times (ExpAr A \times ExpAr A)) + (UnOp \times ExpAr A)) \ar[d]^{|id + (id + (id >< (eval_exp >< eval_exp) + id >< eval_exp))|}
+                                     \ar@@/^2pc/ [ll]^-{|in|}
+\\
+    |a| &  & 1 + (a + ((BinOp \times (a \times a)) + UnOp \times a))\ar[ll]^-{|g_eval_exp|}
+}}
+\end{eqnarray*}
+Daqui retiramos que o gene terá de ser definido da seguinte forma:
+\begin{code}
 g_eval_exp a = either (const a) g where
-    g = either g2_eval g2
+    g = either id g2
     g2 = either g3_eval g4_eval
 
-g2_eval a = a
 g3_eval (a,(b,c)) = if a == Sum then b + c else b * c
 g4_eval (a,b) = if a == Negate then -b else Prelude.exp b
+\end{code}
 ---
-clean X = i1 ()
-clean (N a) = i2 . i1 $ a
+\newline
+\textbf{optimize\_eval}
+\newline \newline
+De forma a tirar proveito dos elementos absorventes de cada operação, definimos um anamorfismo que aplica as regras matemáticas, não alterando a estrutura de dados
+o que permite que o catamorfimo permaneça igual ao definido acima.
+\begin{code}
 clean (Bin Product (N 0) _) = i2 . i1 $ 0
 clean (Bin Product _ (N 0)) = i2 . i1 $ 0
-clean (Bin op x y) = i2. i2 . i1 $ (op,(x,y))
-clean (Un op x) = i2 . i2 . i2 $ (op, x)
+clean (Un E (N 0)) = i2 . i1 $ 1
+clean x = outExpAr x
+
 ---
 gopt a = g_eval_exp a
 \end{code}
-
+---
+\newline
+\textbf{sd\_gen}
+\begin{eqnarray*}
+\xymatrixcolsep{0.5pc}\xymatrixrowsep{5pc}
+\centerline{\xymatrix{
+   ExpAr A \ar[d]_-{|sd|}
+                \ar@@/^2pc/ [rr]^-{|out|} & \qquad \cong
+&   1 + (A + (BinOp \times (ExpAr A \times ExpAr A)) + (UnOp \times ExpAr A)) \ar[d]^{|id + (id + (id >< (sd >< sd) + id >< sd))|}
+                                     \ar@@/^2pc/ [ll]^-{|in|}
+\\
+    |ExpAr A >< ExpAr A| &  & 1 + (A + ((BinOp \times ((ExpAr A)^2 \times (ExpAr A)^2)) + UnOp \times (ExpAr A)^2))\ar[ll]^-{|sd_gen|}
+}}
+\end{eqnarray*}
+\newpage
+Aplicando as regras da derivação à nossa estrutura chegamos ao seguinte gene:
 \begin{code}
 sd_gen :: Floating a =>
-    Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a)))) -> (ExpAr a, ExpAr a)
-sd_gen = either g1 (either g3 (either g5 g6)) where
+    Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) 
+                                (UnOp, (ExpAr a, ExpAr a)))) -> (ExpAr a, ExpAr a)
+sd_gen = either g1 (either g3 (either g5_sd_gen g6_sd_gen)) where
     g1 _ = (X, N 1)
     g3 a = (N a, N 0)
-    g5 (op,((exp1,exp2),(exp3,exp4))) = if op == Sum then (Bin Sum exp1 exp3, Bin Sum exp2 exp4)
-                                                      else (Bin Product exp1 exp3, Bin Sum (Bin Product exp1 exp4) 
-                                                                                           (Bin Product exp2 exp3))
-    g6 (op,(exp1,exp2)) = if op == Negate then (Un op exp1, Un op exp2)
+    
+g5_sd_gen (op,((exp1,exp2),(exp3,exp4))) = if op == Sum then (Bin Sum exp1 exp3, Bin Sum exp2 exp4)
+                                                      else (Bin Product exp1 exp3, Bin Sum (Bin Product exp1 exp4) (Bin Product exp2 exp3))
+g6_sd_gen (op,(exp1,exp2)) = if op == Negate then (Un op exp1, Un op exp2)
                                           else (Un op exp1, Bin Product (Un op exp1) exp2)
     
 \end{code}
-
+---
+\newline
+\textbf{ad\_gen}
+\begin{eqnarray*}
+\xymatrixcolsep{0.5pc}\xymatrixrowsep{5pc}
+\centerline{\xymatrix{
+   ExpAr A \ar[d]_-{|cata ad_gen = f|}
+                \ar@@/^2pc/ [rr]^-{|out|} & \qquad \cong
+&   1 + (A + (BinOp \times (ExpAr A \times ExpAr A)) + (UnOp \times ExpAr A)) \ar[d]^{|id + (id + (id >< (f >< f) + id >< f))|}
+                                     \ar@@/^2pc/ [ll]^-{|in|}
+\\
+    |A >< A| &  & 1 + (A + ((BinOp \times ((ExpAr A)^2 \times (ExpAr A)^2)) + UnOp \times (ExpAr A)^2))\ar[ll]^-{|ad_gen|}
+}}
+\end{eqnarray*}
+\newline
+Para calcular o valor da derivada de uma expressão nesse ponto, sem transformar manipular a expressão original é necessário o gene do catamorfismo
+criar um par com o valor original e o valor da derivada:
 \begin{code}
 ad_gen v = either g1 (either g3 (either g5 g6)) where
-    g1 = (\() -> (v,1))
+    g1 = const (v,1)
     g3 a = (a, 0)
     g5 (op,((n1,n2),(n3,n4))) = if op == Sum then (n1 + n3, n2 + n4)
                                                       else (n1*n3, n1*n4 + n2*n3)
@@ -1075,9 +1193,8 @@ ad_gen v = either g1 (either g3 (either g5 g6)) where
 \end{code}
 
 \subsection*{Problema 2}
-Definir
 \begin{code}
-loop (c,h,s) = ( (c * h) `div` s, h + 4 , s + 1 ) 
+loop (c,h,s) = ( div (c * h) s, h + 4 , succ s ) 
 inic = (1,2,2)
 prj (c,h,s) = c
 
@@ -1089,42 +1206,230 @@ cat = prj . (for loop inic)
 seja a função pretendida.
 \textbf{NB}: usar divisão inteira.
 Apresentar de seguida a justificação da solução encontrada.
+\newline \newline
+De forma a conseguir descrever a sequência de Catalan, seria necessário descobrir a relação entre dois números consecutivos,
+através de cálculos chega-se à seguinte fórmula:
+  \begin{eqnarray}
+    C(n+1) = C(n) * (4n+2)/(n+1)
+  \end{eqnarray}
+Assim para puder aplicar a \textbi{regra da algibeira} é necessário dividir a divisão em mais duas funções mutuamente recursivas:
+  \begin{eqnarray}
+    |lcbr(
+        h(n+1) = h(n) + 4
+    )(    
+    s(n+1) = s(n) + 1
+    )|
+  \end{eqnarray}
+Devido à divisão ser inteira é obrigatório que a multiplicação seja feita antes da divisão.
+Logo, chegamos à seguinte expressão:
+  \begin{eqnarray}
+    C(n+1) = (C(n) * h(n))/s(n)
+  \end{eqnarray}
+  \begin{eqnarray}
+    h(n+1) = h(n) + 4
+  \end{eqnarray}
+  \begin{eqnarray}
+    s(n+1) = s(n) + 1
+  \end{eqnarray}
+Finalmente usando as regras referidas no enunciado chega-se à solução apresentada.
 
 \subsection*{Problema 3}
+\textbf{calcLine}
+\begin{eqnarray*}
+\xymatrixcolsep{0.5pc}\xymatrixrowsep{5pc}
+\centerline{\xymatrix{
+   NPoint \ar[d]_-{|calcLine|}
+                \ar@@/^2pc/ [rr]^-{|out|} & \qquad \cong
+&   1 + |Rational| \times NPoint \ar[d]^{|id + id >< calcLine|}
+                                     \ar@@/^2pc/ [ll]^-{|in|}
+\\
+    |NPoint -> OverTime NPoint| &  & 1 + |Rational| \times (|NPoint -> OverTime NPoint|)\ar[ll]^-{|h|}
+}}
+\end{eqnarray*}
+Tendo o gráfico acima em conta, o gene do catamorfismo tem de devolver uma função com a assinatura |NPoint -> OverTime NPoint|, ou seja,
+o caso nulo deve devolver uma função que retorna uma lista vazia, no caso de existir lista reaproveita-mos o código fornecido no enunciado.
 
 \begin{code}
 calcLine :: NPoint -> (NPoint -> OverTime NPoint)
-calcLine = cataList h where
-   h = undefined
+calcLine = cataList h where 
+   h = either (\_ _ -> nil) calcLine_h2 
+   
+calcLine_h2 (d,f) l = case l of 
+        [] -> nil
+        (x:xs) -> concat . sequenceA [singl . linear1d d x , f xs ]
+\end{code}
 
+Depreendemos que deCasteljau seja um hilomorfismo de listas mas não conseguimos chegar a uma solução para este problema
+\begin{code}
 deCasteljau :: [NPoint] -> OverTime NPoint
-deCasteljau = hyloAlgForm alg coalg where
-   coalg = undefined
-   alg = undefined
+deCasteljau = undefined -- hyloAlgForm alg coalg where
+  -- coalg = undefined
+--   alg = either (const nil) (uncurry calcLine_h2)
 
-hyloAlgForm = undefined
+hyloAlgForm = hyloList
 \end{code}
 
 \subsection*{Problema 4}
-
 Solução para listas não vazias:
 \begin{code}
 avg = p1.avg_aux
 \end{code}
 
 \begin{code}
-avg_aux = undefined
+avg_aux = cataList (either (const i) b) where
+  i = (0,0)
+  b (c,(avg,len)) = ( (avg * len + c) / (succ len )  , succ len)  
 \end{code}
+
+|avg_aux = cata (either (const i) b)| tal que 
+|avg_aux = split avg length| em listas não vazias.
+
+Queremos converter |(either (const i) b)| para um split para aplicarmos
+a regra de Fokkinga.
+
+\begin{eqnarray}
+\start
+    |either (const i) b|
+%
+\just\equiv{ Reflexão-x , Natural-id }
+%
+  |split p1 p2 . either (const i) b|
+%
+\just\equiv{ Fusão-+ }
+%
+  |either ((split p1 p2) . (const i) ((split p1 p2) . b)|
+%
+\just\equiv{ Fusão-x, Natural id }
+%
+  |either (split (p1.(const i) (p2.(const i))) (split (p1.b) (p2.b))|
+%
+\just\equiv{ Lei da Troca }
+%
+  |split (either (p1 . (const i)) (p1 . b)) (either (p2 . (const i)) (p2 . b))|
+\qed
+\end{eqnarray}
+
+Agora temos que |cata (split (either (p1 . (const i)) (p1 . b)) (either (p2 . (const i)) (p2 . b)))| 
+= |split avg length|
+Assim:
+
+\begin{eqnarray}
+\start
+    |lcbr(
+        avg . in = (either (p1.(const i)) (p1.b)) . F (split avg length)
+    )(
+        length . in = (either (p2.(const i)) (p2.b)) . F (split avg length)
+    )|
+%
+\just\equiv{ Def in , Def F}
+%
+  |lcbr(
+        avg.(either nil cons)= (either (p1.(const i)) (p1.b)).(id + id >< (split avg length))
+    )(
+        length.(either nil cons)= (either (p2.(const i)) (p2.b)).(id + id >< (split avg length))
+    )|
+%
+\just\equiv{ fusão-+; reflexão-+; eq-+; igualdade extensional;
+def-comp; def-split; def-× }
+%
+  |lcbr(
+        avg (nil l) = p1 ((const i) l)
+    )(
+        avg (cons (a,l)) = p1 (b (a,(avg l , lenght l)))
+    )|
+  %
+  |lcbr(
+    length (nil l) = p2 ((const i) l)
+  )(
+    length (cons (a,l)) = p2 (b (a,(avg l , length l)))
+  )|
+%
+\just\equiv{ Def nil, Def cons, avg e length de uma lista vazia = 0 }
+%
+  |lcbr(
+        p1 i = 0
+    )(
+        avg (a:l) = p1 ( b (a,(avg l, length l))
+    )|
+  |lcbr(
+    p2 i = 0
+  )(
+    length (a:l) = p2 ( b (a,(avg l, length  l))
+  )|
+\qed
+\end{eqnarray}
+Assim o inicializador (i) é o par (0,0) e o loop (b) é definida a partir da definição de avg dado pelo enunciado e a 
+definição geral do length de uma lista.
+\newline \newline
+
 Solução para árvores de tipo \LTree:
 \begin{code}
 avgLTree = p1.cataLTree gene where
-   gene = undefined
+   gene = either b q
+   b a = (a,1)
+   q ((e1,e2),(d1,d2)) = ((e1*e2 + d1*d2) / (e2 + d2), e2+d2) 
 \end{code}
+Partindo de cima temos que:
+\begin{eqnarray*}
+\start
+    |lcbr(
+        avg . in = (either (p1.(const i)) (p1.b)) . F (split avg lenght)
+    )(
+        len . in = (either (p2.(const i)) (p2.b)) . F (split avg length)
+    )|
+%
+\just\equiv{ Def in , Def F}
+%
+  |lcbr(
+        avg . [Leaf,Fork] = (either (p1.(const i)) (p1.b)) . (id + (split avg length >< split avg length))
+    )(
+        len . [Leaf,Fork] = (either (p2.(const i)) (p2.b)) . (id + (split avg length >< split avg length))
+    )|
+%
+\just\equiv{ fusão-+; reflexão-+; eq-+; igualdade extensional;
+def-comp; def-split; def-× }
+%
+  |lcbr(
+        avg (Leaf l) = p1 . (const i) l
+    )(
+        avg (Fork (e,d)) = p1 ( q ((avg e,length e), (avg d, length d)))
+    )|
+%
+\just\newline
+%
+  |lcbr(
+    length (Leaf l) = p2 . (const i) l
+  )(
+    length (Fork (e,d)) = p2 ( q ((avg e,length e), (avg d, length d)))
+  )|
+%
+\just\equiv{ avg e length de uma folha l = (l,1) }
+% 
+ |lcbr(
+       l = p1 i
+    )(
+        avg (Fork (e,d)) = p1 ( q ((avg e,length e), (avg d, length d)))
+    )|
+%
+\just\newline
+%
+  |lcbr(
+    1 = p2 i
+  )(
+    length (Fork (e,d)) = p2 ( q ((avg e,length e), (avg d, length d)))
+  )|
 
+\qed
+\end{eqnarray*}
+
+Sabe-se que a length de um fork será a soma do lenght da direita com o da esquerda. Quanto à avg aplica-se a fórmula já usada.
 \subsection*{Problema 5}
 Inserir em baixo o código \Fsharp\ desenvolvido, entre \verb!\begin{verbatim}! e \verb!\end{verbatim}!:
 
 \begin{verbatim}
+
+
+
 \end{verbatim}
 
 %----------------- Fim do anexo com soluções dos alunos ------------------------%

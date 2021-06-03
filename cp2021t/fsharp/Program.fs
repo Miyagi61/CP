@@ -3,6 +3,7 @@
 open System
 open Nat
 open LTree
+open BTree
 
 // Define a function to construct a message to print
 let from whom =
