@@ -8,12 +8,11 @@ open Cp
 
 type BTree<'a> = Empty | Node of ('a*(BTree<'a> * BTree<'a>))
 
-let inBTree x = either Empty Node x
+let inBTree x = either Empty (Node x)
 
-let outBTree x =
-     match x with
-     | Empty -> i1 ()
-     | Node (a,(t1,t2)) -> i2 (a,(t1,t2))
+let outBTree x = match x with
+                    | Empty -> i1 ()
+                    | Node (a,(t1,t2)) -> i2 (a,(t1,t2))
 
 // (2) Ana + cata + hylo -------------------------------------------------------
 
@@ -58,148 +57,64 @@ let preord x = let f(h,(l,r))=x :: l @ r
 let postordt x = let f(h,(l,r))=l @ r @ [h]
                  in  cataBTree (either (konst []) f) // post-order
 
-(*
-// (4.3) Double factorial ------------------------------------------------------
+// (4.3) Quicksort ------------------------------------------------------
 
-let dfacd (n,m) = if n = m then i1 n else let k = (n+m) / 2 in i2 ((n,k),(k+1,m))
+let qSort  = hyloBTree inord qsep
 
-let dfac n =
-     match n with
-     | 0 -> 1
-     | _ -> let mul(x,y) = x*y in hyloLTree (either id mul) dfacd (1,n)
+let qsep x = match x with
+          | [] -> Left ()
+          | (h:t) -> let (s,l) = (s,l) = part t h
+                        in  Right (h,(s,l))
+                     
+let part x y = match x with
+          | [] -> ([],[])
+          | (h:t) -> if h < y then let (s,l) = part t y in (h:s,l)
+                       else let (s,l) = part t y in (s,h:l)
 
-// (4.4) Double square function ------------------------------------------------
+// (4.4) Traces ------------------------------------------------
 
-// recall sq' in RList.hs in...
-let add(x,y) = x+y
+let traces = cataBTree (either (konst [[]]) tunion)
 
-let dsq' n =
-     match n with
-     | 0 -> 0
-     | _ -> (cataLTree (either id add) << fmap (fun n -> 2*n-1) << (anaLTree dfacd)) (1,n)
+let tunion (x,(l,r)) = union (map (a:) l) (map (a:) r)
 
-let dsq n =
-     match n with
-     | 0 -> 0
-     | otherwise -> 
-          let nthodd n = 2*n - 1
-          let fdfacd f (n,m) = if n = m then i1 (f n) else let k = (n+m) / 2 in i2 ((n,k),(k+1,m))
-          (hyloLTree (either id add) (fdfacd nthodd)) (1,n)
+// (4.5) Towers of Hanoi ---------------------------------
 
-// (4.5) Fibonacci -------------------------------------------------------------
+let hanoi = hyloBTree present strategy
 
-let fibd n = if n < 2 then i1 () else i2 (n-1, n-2)
+let present = inord
 
-let fib =  hyloLTree (either one add) fibd
+let strategy x = match x with
+               | (d,0) = Left ()
+               | (d,n+1) = Right ((n,d),((not d,n),(not d,n)))
 
-// (4.6) Merge sort ------------------------------------------------------------
+// (5) Depth and balancing (using mutual recursion) --------------------------
 
-// singl   x = [x]
+let balBTree = p1 << baldepth
 
-let rec merge (l,r) =
-     match (l,r) with
-     | (_,[]) -> l
-     | ([],_) -> r
-     | (x::xs,y::ys) -> if x < y then x :: merge (xs, y :: ys) else y :: merge (x :: xs, ys)
+let depthBTree = p2 << baldepth
 
-let rec sep l =
-     match l with
-     | [] -> ([],[])
-     | (h::t) -> let (l,r) = sep t in (h::r,l)  // a List cata
+let baldepth = cataBTree baldepth_g
 
-let lsplit l =
-     match l with
-     | [x] -> i1 x
-     | otherwise -> i2 (sep l)
+let baldepth_g = either (konst(True,1)) (baldepth_h << (id >< baldepth_f))
 
-let mSort' l =
-     match l with
-     | [] -> []
-     | otherwise -> hyloLTree (either singl merge) lsplit l
+let baldepth_h (a,((b1,b2),(d1,d2)))  = (b1 && b2 && abs(d1-d2)<=1,1+max d1 d2) 
 
-// pointwise version:
+let baldepth_f ((b1,d1),(b2,d2)) = ((b1,b2),(d1,d2))
 
-let rec mSort l =
-     match l with
-     | [] -> []
-     | [x] -> [x]
-     | otherwise -> let (l1,l2) = sep l in merge(mSort l1, mSort l2)
+// (6) Going polytipic -------------------------------------------------------
 
-// (4.7) Double map (unordered lists) ------------------------------------------
+// natural transformation from base functor to monoid
+let tnat f = let theta = uncurry mappend
+               in either (konst mempty) (theta << (f >< theta))
 
-let conc(l,r)= l @ r
+// monoid reduction 
 
-let dmap f x =
-     if x = [] then []
-     else hyloLTree (either (singl << f) conc) lsplit x
+let monBTree f = cataBTree (tnat f)
 
-// (4.8) Double map (keeps the order) ------------------------------------------
+// alternative to (4.2) serialization ----------------------------------------
 
-let drop (m:int) (l:'a list) = l.[m..]
+let preordt' = monBTree singl
 
-let divide l =
-     match l with
-     | [x] -> i1 x
-     | otherwise -> let m = (List.length l) / 2 in i2 (split (List.take m) (drop m) l)
+// alternative to (4.1) counting ---------------------------------------------
 
-let dmap1 f x =
-     if x = [] then []
-     else (hyloLTree (either (singl << f) conc) divide) x
-(*
--- (5) Monad -------------------------------------------------------------------
-
-instance Monad LTree where
-     return  = Leaf
-     t >>= g = (mu . fmap g) t
-
-instance Strong LTree
-
-mu  :: LTree (LTree a) -> LTree a
-mu  =  cataLTree (either id Fork)
-
-{-- fmap :: (Monad m) => (t -> a) -> m t -> m a
-    fmap f t = do { a <- t ; return (f a) }
---}
-
--- (6) Going polytipic -------------------------------------------------------
-
--- natural transformation from base functor to monoid
-tnat :: Monoid c => (a -> c) -> Either a (c, c) -> c
-tnat f = either f (uncurry mappend)
-
--- monoid reduction 
-
-monLTree f = cataLTree (tnat f)
-
--- alternative to (4.2) serialization ----------------------------------------
-
-tips' = monLTree singl
-
--- alternative to (4.1) counting ---------------------------------------------
-
-countLTree' = monLTree (const (Sum 1))
-
--- distributive law ----------------------------------------------------------
-
-dlLTree :: Strong f => LTree (f a) -> f (LTree a)
-dlLTree = cataLTree (either (fmap Leaf) (fmap Fork .dstr))
-
--- (7) Zipper ----------------------------------------------------------------
-
-data Deriv a = Dr Bool (LTree a)
-
-type Zipper a = [ Deriv a ]
-
-plug :: Zipper a -> LTree a -> LTree a
-plug [] t = t
-plug ((Dr False l):z) t = Fork (plug z t,l) 
-plug ((Dr True  r):z) t = Fork (r,plug z t)
-
--- (8) Advanced --------------------------------------------------------------
-
-instance Applicative LTree where
-    pure = return
-    (<*>) = aap
-
----------------------------- end of library ----------------------------------
-*)*)
+let countBTree' = monBTree (konst (Sum 1))

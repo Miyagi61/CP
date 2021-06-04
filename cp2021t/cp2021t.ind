@@ -8,14 +8,16 @@
   \indexspace
 
   \item Combinador ``pointfree''
-    \subitem \emph  {cata}, \hyperpage{8, 9}
-    \subitem \emph  {either}, \hyperpage{3}, \hyperpage{8}
+    \subitem \emph  {cata}, \hyperpage{8, 9}, \hyperpage{13}, 
+		\hyperpage{15--17}
+    \subitem \emph  {either}, \hyperpage{3}, \hyperpage{8}, 
+		\hyperpage{13--17}
   \item Curvas de Bézier, \hyperpage{6, 7}
   \item Cálculo de Programas, \hyperpage{1, 2}, \hyperpage{5}
     \subitem Material Pedagógico, \hyperpage{1}
       \subsubitem BTree.hs, \hyperpage{8}
       \subsubitem Cp.hs, \hyperpage{8}
-      \subsubitem LTree.hs, \hyperpage{8}, \hyperpage{14}
+      \subsubitem LTree.hs, \hyperpage{8}, \hyperpage{17}
       \subsubitem Nat.hs, \hyperpage{8}
 
   \indexspace
@@ -25,15 +27,17 @@
 
   \indexspace
 
-  \item F\#, \hyperpage{8}, \hyperpage{14}
+  \item F\#, \hyperpage{8}, \hyperpage{18}
   \item Functor, \hyperpage{5}, \hyperpage{11}
   \item Função
-    \subitem $\pi _1$, \hyperpage{6}, \hyperpage{9}, \hyperpage{14}
-    \subitem $\pi _2$, \hyperpage{9}, \hyperpage{13}
-    \subitem \emph  {for}, \hyperpage{6}, \hyperpage{9}, \hyperpage{13}
-    \subitem \emph  {length}, \hyperpage{8}
+    \subitem $\pi _1$, \hyperpage{6}, \hyperpage{9}, \hyperpage{16--18}
+    \subitem $\pi _2$, \hyperpage{9}, \hyperpage{13}, 
+		\hyperpage{17, 18}
+    \subitem \emph  {for}, \hyperpage{6}, \hyperpage{9}, \hyperpage{15}
+    \subitem \emph  {length}, \hyperpage{8}, \hyperpage{16--18}
     \subitem \emph  {map}, \hyperpage{11, 12}
-    \subitem \emph  {uncurry}, \hyperpage{3}
+    \subitem \emph  {succ}, \hyperpage{15, 16}
+    \subitem \emph  {uncurry}, \hyperpage{3}, \hyperpage{13}
 
   \indexspace
 
@@ -59,7 +63,7 @@
 
   \indexspace
 
-  \item Racionais, \hyperpage{7, 8}, \hyperpage{10--12}
+  \item Racionais, \hyperpage{7, 8}, \hyperpage{10--12}, \hyperpage{16}
 
   \indexspace
 
