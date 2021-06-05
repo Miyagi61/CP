@@ -1045,15 +1045,13 @@ ad v = p2 . cataExpAr (ad_gen v)
 %
 \just\equiv{ Natural-id, Reflexao-+, Fusao-+, Eq-+ }
 %
-  |lcbr(
-        outExpAr . const X = i1
-    )|
-%
-  |lcbr( 
-        outExpAr . N = i2 . i1
-        )(
-        outExpAr . either bin (uncurry  Un) = i2 . i2
-    )|
+\left\{
+   \begin{array}{lll}
+      |outExpAr . const X = i1|\\
+      |outExpAr . N = i2 . i1|\\
+      |outExpAr . either bin (uncurry  Un) = i2 . i2|\\
+  \end{array}
+\right.
 \qed
 \end{eqnarray}
 Repetindo este passo mais uma vez e após aplicar a regra de igualdade extensional chega-se à seguinte definição:
@@ -1324,30 +1322,25 @@ Assim:
 \just\equiv{ fusão-+; reflexão-+; eq-+; igualdade extensional;
 def-comp; def-split; def-× }
 %
-  |lcbr(
-        avg (nil l) = p1 ((const i) l)
-    )(
-        avg (cons (a,l)) = p1 (b (a,(avg l , lenght l)))
-    )|
-  %
-  |lcbr(
-    length (nil l) = p2 ((const i) l)
-  )(
-    length (cons (a,l)) = p2 (b (a,(avg l , length l)))
-  )|
+\left\{
+   \begin{array}{lll}
+      |avg (nil l) = p1 ((const i) l)|\\
+      |avg (cons (a,l)) = p1 (b (a,(avg l , lenght l)))|\\
+      |length (nil l) = p2 ((const i) l)|\\
+      |length (cons (a,l)) = p2 (b (a,(avg l , length l)))|\\
+  \end{array}
+\right.
 %
 \just\equiv{ Def nil, Def cons, avg e length de uma lista vazia = 0 }
 %
-  |lcbr(
-        p1 i = 0
-    )(
-        avg (a:l) = p1 ( b (a,(avg l, length l))
-    )|
-  |lcbr(
-    p2 i = 0
-  )(
-    length (a:l) = p2 ( b (a,(avg l, length  l))
-  )|
+\left\{
+   \begin{array}{lll}
+      |p1 i = 0|\\
+      |avg (a:l) = p1 ( b (a,(avg l, length l))|\\
+      |p2 i = 0|\\
+      |length (a:l) = p2 ( b (a,(avg l, length  l))|
+  \end{array}
+\right.
 \qed
 \end{eqnarray}
 Assim o inicializador (i) é o par (0,0) e o loop (b) é definida a partir da definição de avg dado pelo enunciado e a 
@@ -1381,36 +1374,25 @@ Partindo de cima temos que:
 \just\equiv{ fusão-+; reflexão-+; eq-+; igualdade extensional;
 def-comp; def-split; def-× }
 %
-  |lcbr(
-        avg (Leaf l) = p1 . (const i) l
-    )(
-        avg (Fork (e,d)) = p1 ( q ((avg e,length e), (avg d, length d)))
-    )|
-%
-\just\newline
-%
-  |lcbr(
-    length (Leaf l) = p2 . (const i) l
-  )(
-    length (Fork (e,d)) = p2 ( q ((avg e,length e), (avg d, length d)))
-  )|
+\left\{
+   \begin{array}{lll}
+      |avg (Leaf l) = p1 . (const i) l|\\
+      |avg (Fork (e,d)) = p1 ( q ((avg e,length e), (avg d, length d)))|\\
+      |length (Leaf l) = p2 . (const i) l|\\
+      |length (Fork (e,d)) = p2 ( q ((avg e,length e), (avg d, length d)))|\\
+  \end{array}
+\right.
 %
 \just\equiv{ avg e length de uma folha l = (l,1) }
-% 
- |lcbr(
-       l = p1 i
-    )(
-        avg (Fork (e,d)) = p1 ( q ((avg e,length e), (avg d, length d)))
-    )|
 %
-\just\newline
-%
-  |lcbr(
-    1 = p2 i
-  )(
-    length (Fork (e,d)) = p2 ( q ((avg e,length e), (avg d, length d)))
-  )|
-
+\left\{
+   \begin{array}{lll}
+      |l = p1 i|\\
+      |avg (Fork (e,d)) = p1 ( q ((avg e,length e), (avg d, length d)))|\\
+      |1 = p2 i|\\
+      |length (Fork (e,d)) = p2 ( q ((avg e,length e), (avg d, length d)))|\\
+  \end{array}
+\right.
 \qed
 \end{eqnarray*}
 

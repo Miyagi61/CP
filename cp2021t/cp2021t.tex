@@ -1575,9 +1575,13 @@ São dadas:
 %
 \just\equiv{ Natural-id, Reflexao-+, Fusao-+, Eq-+ }
 %
-  \ensuremath{\begin{lcbr}\Varid{outExpAr}\comp \underline{\Conid{X}}\mathrel{=}i_1\\\cdot \end{lcbr}}
-%
-  \ensuremath{\begin{lcbr}\Varid{outExpAr}\comp \Conid{N}\mathrel{=}i_2\comp i_1\\\Varid{outExpAr}\comp \alt{\Varid{bin}}{\uncurry{\Conid{Un}}}\mathrel{=}i_2\comp i_2\end{lcbr}}
+\left\{
+   \begin{array}{lll}
+      \ensuremath{\Varid{outExpAr}\comp \underline{\Conid{X}}\mathrel{=}i_1}\\
+      \ensuremath{\Varid{outExpAr}\comp \Conid{N}\mathrel{=}i_2\comp i_1}\\
+      \ensuremath{\Varid{outExpAr}\comp \alt{\Varid{bin}}{\uncurry{\Conid{Un}}}\mathrel{=}i_2\comp i_2}\\
+  \end{array}
+\right.
 \qed
 \end{eqnarray}
 Repetindo este passo mais uma vez e após aplicar a regra de igualdade extensional chega-se à seguinte definição:
@@ -1939,14 +1943,25 @@ Assim:
 \just\equiv{ fusão-+; reflexão-+; eq-+; igualdade extensional;
 def-comp; def-split; def-× }
 %
-  \ensuremath{\begin{lcbr}\Varid{avg}\;(\Varid{nil}\;\Varid{l})\mathrel{=}\p1\;(\underline{\Varid{i}}\;\Varid{l})\\\Varid{avg}\;(\Varid{cons}\;(\Varid{a},\Varid{l}))\mathrel{=}\p1\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\Varid{lenght}\;\Varid{l})))\end{lcbr}}
-  %
-  \ensuremath{\begin{lcbr}\length \;(\Varid{nil}\;\Varid{l})\mathrel{=}\p2\;(\underline{\Varid{i}}\;\Varid{l})\\\length \;(\Varid{cons}\;(\Varid{a},\Varid{l}))\mathrel{=}\p2\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\length \;\Varid{l})))\end{lcbr}}
+\left\{
+   \begin{array}{lll}
+      \ensuremath{\Varid{avg}\;(\Varid{nil}\;\Varid{l})\mathrel{=}\p1\;(\underline{\Varid{i}}\;\Varid{l})}\\
+      \ensuremath{\Varid{avg}\;(\Varid{cons}\;(\Varid{a},\Varid{l}))\mathrel{=}\p1\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\Varid{lenght}\;\Varid{l})))}\\
+      \ensuremath{\length \;(\Varid{nil}\;\Varid{l})\mathrel{=}\p2\;(\underline{\Varid{i}}\;\Varid{l})}\\
+      \ensuremath{\length \;(\Varid{cons}\;(\Varid{a},\Varid{l}))\mathrel{=}\p2\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\length \;\Varid{l})))}\\
+  \end{array}
+\right.
 %
 \just\equiv{ Def nil, Def cons, avg e length de uma lista vazia = 0 }
 %
-  \ensuremath{\begin{lcbr}\p1\;\Varid{i}\mathrel{=}\mathrm{0}\\\Varid{avg}\;(\Varid{a}\mathbin{:}\Varid{l})\mathrel{=}\p1\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\length \;\Varid{l})))\end{lcbr}}
-  \ensuremath{\begin{lcbr}\p2\;\Varid{i}\mathrel{=}\mathrm{0}\\\length \;(\Varid{a}\mathbin{:}\Varid{l})\mathrel{=}\p2\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\length \;\Varid{l})))\end{lcbr}}
+\left\{
+   \begin{array}{lll}
+      \ensuremath{\p1\;\Varid{i}\mathrel{=}\mathrm{0}}\\
+      \ensuremath{\Varid{avg}\;(\Varid{a}\mathbin{:}\Varid{l})\mathrel{=}\p1\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\length \;\Varid{l}))}\\
+      \ensuremath{\p2\;\Varid{i}\mathrel{=}\mathrm{0}}\\
+      \ensuremath{\length \;(\Varid{a}\mathbin{:}\Varid{l})\mathrel{=}\p2\;(\Varid{b}\;(\Varid{a},(\Varid{avg}\;\Varid{l},\length \;\Varid{l}))}
+  \end{array}
+\right.
 \qed
 \end{eqnarray}
 Assim o inicializador (i) é o par (0,0) e o loop (b) é definida a partir da definição de avg dado pelo enunciado e a 
@@ -1982,20 +1997,25 @@ Partindo de cima temos que:
 \just\equiv{ fusão-+; reflexão-+; eq-+; igualdade extensional;
 def-comp; def-split; def-× }
 %
-  \ensuremath{\begin{lcbr}\Varid{avg}\;(\Conid{Leaf}\;\Varid{l})\mathrel{=}\p1\comp \underline{\Varid{i}}\;\Varid{l}\\\Varid{avg}\;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p1\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))\end{lcbr}}
-%
-\just\newline
-%
-  \ensuremath{\begin{lcbr}\length \;(\Conid{Leaf}\;\Varid{l})\mathrel{=}\p2\comp \underline{\Varid{i}}\;\Varid{l}\\\length \;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p2\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))\end{lcbr}}
+\left\{
+   \begin{array}{lll}
+      \ensuremath{\Varid{avg}\;(\Conid{Leaf}\;\Varid{l})\mathrel{=}\p1\comp \underline{\Varid{i}}\;\Varid{l}}\\
+      \ensuremath{\Varid{avg}\;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p1\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))}\\
+      \ensuremath{\length \;(\Conid{Leaf}\;\Varid{l})\mathrel{=}\p2\comp \underline{\Varid{i}}\;\Varid{l}}\\
+      \ensuremath{\length \;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p2\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))}\\
+  \end{array}
+\right.
 %
 \just\equiv{ avg e length de uma folha l = (l,1) }
-% 
- \ensuremath{\begin{lcbr}\Varid{l}\mathrel{=}\p1\;\Varid{i}\\\Varid{avg}\;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p1\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))\end{lcbr}}
 %
-\just\newline
-%
-  \ensuremath{\begin{lcbr}\mathrm{1}\mathrel{=}\p2\;\Varid{i}\\\length \;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p2\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))\end{lcbr}}
-
+\left\{
+   \begin{array}{lll}
+      \ensuremath{\Varid{l}\mathrel{=}\p1\;\Varid{i}}\\
+      \ensuremath{\Varid{avg}\;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p1\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))}\\
+      \ensuremath{\mathrm{1}\mathrel{=}\p2\;\Varid{i}}\\
+      \ensuremath{\length \;(\Conid{Fork}\;(\Varid{e},\Varid{d}))\mathrel{=}\p2\;(\Varid{q}\;((\Varid{avg}\;\Varid{e},\length \;\Varid{e}),(\Varid{avg}\;\Varid{d},\length \;\Varid{d})))}\\
+  \end{array}
+\right.
 \qed
 \end{eqnarray*}
 

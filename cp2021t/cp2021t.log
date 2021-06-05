@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.28)  4 JUN 2021 16:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.28)  5 JUN 2021 14:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -874,7 +874,7 @@ Overfull \hbox (8.57883pt too wide) in paragraph at lines 1426--1475
 \openout5 = `cp2021t.ptb'.
 
  <xymatrix 3x2 257>
-Overfull \hbox (45.00003pt too wide) in alignment at lines 1599--1609
+Overfull \hbox (45.00003pt too wide) in alignment at lines 1603--1613
  [][][] []
  []
 
@@ -882,14 +882,14 @@ Overfull \hbox (45.00003pt too wide) in alignment at lines 1599--1609
 \openout5 = `cp2021t.ptb'.
 
  <xymatrix 3x2 257>
-Overfull \hbox (45.00003pt too wide) in alignment at lines 1627--1637
+Overfull \hbox (45.00003pt too wide) in alignment at lines 1631--1641
  [][][] []
  []
 
 \openout5 = `cp2021t.ptb'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1655--1662
+Underfull \hbox (badness 10000) in paragraph at lines 1659--1666
 
  []
 
@@ -899,17 +899,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 1655--1662
 ! Dimension too large.
 <recently read> \dimen@ 
                         
-l.1690 }}
+l.1694 }}
          
 ? 
 ! Dimension too large.
 <recently read> \dimen@ 
                         
-l.1690 }}
+l.1694 }}
          
 ? 
 257>
-Overfull \hbox (45.00003pt too wide) in alignment at lines 1681--1691
+Overfull \hbox (45.00003pt too wide) in alignment at lines 1685--1695
  [][][] []
  []
 
@@ -917,52 +917,52 @@ Overfull \hbox (45.00003pt too wide) in alignment at lines 1681--1691
 \openout5 = `cp2021t.ptb'.
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][][][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][][][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][][][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][][][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][][][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][] 
  []
 
 
-Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
+Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
  [][][][] 
  []
 
@@ -970,17 +970,17 @@ Overfull \hbox (40.749pt too wide) in paragraph at lines 1694--1727
 ! Dimension too large.
 <recently read> \dimen@ 
                         
-l.1740 }}
+l.1744 }}
          
 ? 
 ! Dimension too large.
 <recently read> \dimen@ 
                         
-l.1740 }}
+l.1744 }}
          
 ? 
 257>
-Overfull \hbox (45.00003pt too wide) in alignment at lines 1731--1741
+Overfull \hbox (45.00003pt too wide) in alignment at lines 1735--1745
  [][][] []
  []
 
@@ -991,17 +991,17 @@ Overfull \hbox (45.00003pt too wide) in alignment at lines 1731--1741
 \openout5 = `cp2021t.ptb'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1790--1797
+Underfull \hbox (badness 10000) in paragraph at lines 1794--1801
 
  []
 
 ! Undefined control sequence.
-l.1800 Assim para puder aplicar a \textbi
+l.1804 Assim para puder aplicar a \textbi
                                          {regra da algibeira} é necessário...
 
 ? 
 [15] <xymatrix 3x2 257>
-Overfull \hbox (45.00003pt too wide) in alignment at lines 1819--1829
+Overfull \hbox (45.00003pt too wide) in alignment at lines 1823--1833
  [][][] []
  []
 
@@ -1014,139 +1014,19 @@ Overfull \hbox (45.00003pt too wide) in alignment at lines 1819--1829
 \openout5 = `cp2021t.ptb'.
 
 [16]
-Overfull \hbox (43.55826pt too wide) in alignment at lines 1931--1951
- [][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1951--1955
+Underfull \hbox (badness 10000) in paragraph at lines 1966--1970
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1951--1955
+Underfull \hbox (badness 10000) in paragraph at lines 1966--1970
 
  []
 
 \openout5 = `cp2021t.ptb'.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.1998 
-       
-? 
-! Missing } inserted.
-<inserted text> 
-                }
-l.1998 
-       
-? 
-! Missing } inserted.
-<inserted text> 
-                }
-l.1998 
-       
-? 
-! Missing \cr inserted.
-<inserted text> 
-                \cr 
-l.1998 
-       
-? 
-! Missing { inserted.
-<inserted text> 
-                {
-l.1998 
-       
-? 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.1998 
-       
-? 
-! Missing $$ inserted.
-<to be read again> 
-                   \par 
-l.1998 
-       
-? 
 [17]
-! Misplaced alignment tab character &.
-\reserved@a ->&
-               
-l.1999 \qed
-           
-? 
-! Misplaced \cr.
-\@@eqncr ...l \@eqnswtrue \global \@eqcnt \z@ \cr 
-                                                  
-l.1999 \qed
-           
-? 
-! Misplaced \noalign.
-\@xeqncr [#1]->\ifnum 0=`{\fi }\@@eqncr \noalign 
-                                                 {\penalty \@eqpen \vskip \j...
-l.1999 \qed
-           
-? 
-! Misplaced alignment tab character &.
-<recently read> &
-                 
-l.1999 \qed
-           
-? 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.1999 \qed
-           
-? 
-! Misplaced alignment tab character &.
-\qed ->\\&\Box &
-                
-l.1999 \qed
-           
-? 
-! Misplaced alignment tab character &.
-\reserved@a ->&
-                & &
-l.2000 \end{eqnarray*}
-                      
-? 
-! Misplaced alignment tab character &.
-\reserved@a ->& &
-                  &
-l.2000 \end{eqnarray*}
-                      
-? 
-! Misplaced alignment tab character &.
-\reserved@a ->& & &
-                   
-l.2000 \end{eqnarray*}
-                      
-? 
-! Misplaced \cr.
-\@@eqncr ...l \@eqnswtrue \global \@eqcnt \z@ \cr 
-                                                  
-l.2000 \end{eqnarray*}
-                      
-? 
-! Extra }, or forgotten $.
-\endeqnarray ->\@@eqncr \egroup 
-                                \global \advance \c@equation \m@ne $$\@ignor...
-l.2000 \end{eqnarray*}
-                      
-? 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.2000 \end{eqnarray*}
-                      
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2004--2007
+Underfull \hbox (badness 10000) in paragraph at lines 2024--2027
 
  []
 
@@ -1154,25 +1034,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 2004--2007
 
 
 ]) (./cp2021t.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2141.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2161.
  [22
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2141.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2161.
  (./cp2021t.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2141.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2141.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2161.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2161.
 
 Package rerunfilecheck Info: File `cp2021t.out' has not changed.
 (rerunfilecheck)             Checksum: 7ABFEEFBC6EDEE4EAEC2BDEF142178CE;514.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2141.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2161.
  ) 
 Here is how much of TeX's memory you used:
- 13410 strings out of 483090
- 194731 string characters out of 5963929
- 527039 words of memory out of 5000000
- 28003 multiletter control sequences out of 15000+600000
- 571414 words of font info for 137 fonts, out of 8000000 for 9000
+ 13392 strings out of 483090
+ 194558 string characters out of 5963929
+ 526039 words of memory out of 5000000
+ 27993 multiletter control sequences out of 15000+600000
+ 568706 words of font info for 127 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
  48i,25n,77p,3290b,780s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1202,7 +1082,7 @@ st/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/palatino/uplri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/x
 ypic/xyatip10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/xypic/xybti
 p10.pfb>
-Output written on cp2021t.pdf (22 pages, 373128 bytes).
+Output written on cp2021t.pdf (22 pages, 373655 bytes).
 PDF statistics:
  477 PDF objects out of 1000 (max. 8388607)
  418 compressed objects within 5 object streams
