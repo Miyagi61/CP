@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.28)  5 JUN 2021 14:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.28)  6 JUN 2021 15:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -901,13 +901,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 1659--1666
                         
 l.1694 }}
          
-? 
+? r
+OK, entering \nonstopmode...
 ! Dimension too large.
 <recently read> \dimen@ 
                         
 l.1694 }}
          
-? 
+I can't work with sizes bigger than about 19 feet.
+Continue and I'll use the largest value I can.
+
 257>
 Overfull \hbox (45.00003pt too wide) in alignment at lines 1685--1695
  [][][] []
@@ -972,13 +975,17 @@ Overfull \hbox (40.749pt too wide) in paragraph at lines 1698--1731
                         
 l.1744 }}
          
-? 
+I can't work with sizes bigger than about 19 feet.
+Continue and I'll use the largest value I can.
+
 ! Dimension too large.
 <recently read> \dimen@ 
                         
 l.1744 }}
          
-? 
+I can't work with sizes bigger than about 19 feet.
+Continue and I'll use the largest value I can.
+
 257>
 Overfull \hbox (45.00003pt too wide) in alignment at lines 1735--1745
  [][][] []
@@ -998,8 +1005,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 1794--1801
 ! Undefined control sequence.
 l.1804 Assim para puder aplicar a \textbi
                                          {regra da algibeira} é necessário...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-? 
 [15] <xymatrix 3x2 257>
 Overfull \hbox (45.00003pt too wide) in alignment at lines 1823--1833
  [][][] []
@@ -1034,18 +1045,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 2024--2027
 
 
 ]) (./cp2021t.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2161.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2143.
  [22
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2161.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2143.
  (./cp2021t.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2161.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2161.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2143.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2143.
 
 Package rerunfilecheck Info: File `cp2021t.out' has not changed.
 (rerunfilecheck)             Checksum: 7ABFEEFBC6EDEE4EAEC2BDEF142178CE;514.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2161.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2143.
  ) 
 Here is how much of TeX's memory you used:
  13392 strings out of 483090
@@ -1082,7 +1093,7 @@ st/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/palatino/uplri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/x
 ypic/xyatip10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/xypic/xybti
 p10.pfb>
-Output written on cp2021t.pdf (22 pages, 373655 bytes).
+Output written on cp2021t.pdf (22 pages, 372978 bytes).
 PDF statistics:
  477 PDF objects out of 1000 (max. 8388607)
  418 compressed objects within 5 object streams

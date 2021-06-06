@@ -11,7 +11,9 @@ let from whom =
 
 [<EntryPoint>]
 let main argv =
-    let message = from "F#" // Call the function
+    //let message = from "F#" // Call the function
+    let tree = Node(2,(Empty,Empty))
+    printf "Count %d" (countBTree tree)
     //printfn "Hello world %s" message
     //printfn "Bubble Sort [5,3,2,9,11] = %A" (bSort [5;3;2;9;11])
     //printfn "Merge Sort [5,3,2,9,11] = %A" (mSort [5;3;2;9;11])

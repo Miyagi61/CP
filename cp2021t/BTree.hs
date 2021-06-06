@@ -102,7 +102,7 @@ traces = cataBTree (either (const [[]]) tunion)
 
 -- where
 
-tunion(a,(l,r)) = union (map (a:) l) (map (a:) r) 
+tunion(a,(l,r)) = map (a:) l `union` map (a:) r 
 
 -- (4.6) Towers of Hanoi -------------------------------------------------------
 
